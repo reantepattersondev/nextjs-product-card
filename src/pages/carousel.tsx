@@ -2,6 +2,7 @@ import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { products } from "@/exampleProductData";
 import { ProductTypesense } from "@/interfaces";
+import ProductCarousel from "@/components/carousel";
 
 type CarouselPageProps = {
     productList: ProductTypesense[];
@@ -20,15 +21,11 @@ const CarouselShowcasePage: NextPage<CarouselPageProps> = ({ productList }) => (
             </Head>
 
             <main>
-                <h1>Product Carousel</h1>
-
-                <div>
-                    <ul>
-                        {productList.map((product) => (
-                            <li key={product.id}>{product.product_name}</li>
-                        ))}
-                    </ul>
-                </div>
+                <ProductCarousel
+                    products={productList}
+                    isAutoPlay={false}
+                    isButtonVisible={true}
+                />
             </main>
         </div>
     </>
