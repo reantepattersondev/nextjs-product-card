@@ -28,7 +28,7 @@ const ProductCard: React.FunctionComponent<ProductTypesense> = (
                             <div className="absolute top-9 left-0 min-w-full flex justify-center">
                                 <div className="border-t-2 min-w-3/4"></div>
                             </div>
-                            <p className="text-ns text-center absolute top-9 min-w-full">
+                            <p className="text-ns text-center absolute top-10 min-w-full">
                                 POINTS
                             </p>
                         </div>
