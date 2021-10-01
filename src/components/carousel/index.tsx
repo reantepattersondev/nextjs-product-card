@@ -21,7 +21,7 @@ const ProductCarousel: React.FunctionComponent<ProductCarouselProps> = (
         dragFree: true,
     });
     const autoplay = useCallback(() => {
-        if (!embla) return;
+        if (!embla || !props.isAutoPlay) return;
         if (embla.canScrollNext()) {
             embla.scrollNext();
         } else {
@@ -60,8 +60,12 @@ const ProductCarousel: React.FunctionComponent<ProductCarouselProps> = (
                     ))}
                 </div>
             </div>
-            <PrevButton onClick={scrollPrev} isVisible={prevBtnVisible} />
-            <NextButton onClick={scrollNext} isVisible={nextBtnVisible} />
+            {props.isButtonVisible && (
+                <PrevButton onClick={scrollPrev} isDisabled={prevBtnVisible} />
+            )}
+            {props.isButtonVisible && (
+                <NextButton onClick={scrollNext} isDisabled={nextBtnVisible} />
+            )}
         </div>
     );
 };
