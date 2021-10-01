@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
-import ProductCardProps from "./productCard";
+import ProductCard from "./productCard";
 import { ProductTypesense } from "@/interfaces";
 import useEmblaCarousel from "embla-carousel-react";
-//import './index.css'
+import styles from "./index.module.css";
 
 type ProductCarouselProps = {
     products: ProductTypesense[];
@@ -16,12 +16,17 @@ const ProductCarousel: React.FunctionComponent<ProductCarouselProps> = (
         containScroll: "trimSnaps",
         dragFree: true,
     });
+
     return (
-        <div className="embla" ref={emblaRef}>
-            <div className="embla__container">
-                <div className="embla__slide">Slide 1</div>
-                <div className="embla__slide">Slide 2</div>
-                <div className="embla__slide">Slide 3</div>
+        <div className="relative bg-gray-300 p-8 max-w-5xl mx-auto h-600p">
+            <div className={styles.embla__viewport} ref={emblaRef}>
+                <div className={styles.embla__container}>
+                    {props.products.map((product, index) => (
+                        <div className={styles.embla__slide} key={index}>
+                            <ProductCard {...product} />
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     );

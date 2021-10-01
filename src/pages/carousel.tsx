@@ -20,7 +20,7 @@ const CarouselShowcasePage: NextPage<CarouselPageProps> = ({ productList }) => (
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <main>
+            <main className="m-3">
                 <ProductCarousel
                     products={productList}
                     isAutoPlay={false}
