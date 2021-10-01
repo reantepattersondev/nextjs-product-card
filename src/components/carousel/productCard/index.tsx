@@ -13,25 +13,29 @@ const ProductCard: React.FunctionComponent<ProductTypesense> = (
             <div className="min-h-full relative">
                 <div className="absolute top-0 left-0 z-10 flex justify-between min-w-full">
                     <div>
-                        <div className={styles.soldOut}>
-                            <p className="text-nm text-center absolute top-4 min-w-full">
-                                SOLD
-                            </p>
-                            <p className="text-nm text-center absolute top-8 min-w-full">
-                                OUT
-                            </p>
-                        </div>
-                        <div className={styles.pointMark}>
-                            <p className="text-nl text-center absolute top-2 min-w-full">
-                                100
-                            </p>
-                            <div className="absolute top-9 left-0 min-w-full flex justify-center">
-                                <div className="border-t-2 min-w-3/4"></div>
+                        {props.in_stock && (
+                            <div className={styles.soldOut}>
+                                <p className="text-nm text-center absolute top-4 min-w-full">
+                                    SOLD
+                                </p>
+                                <p className="text-nm text-center absolute top-8 min-w-full">
+                                    OUT
+                                </p>
                             </div>
-                            <p className="text-ns text-center absolute top-10 min-w-full">
-                                POINTS
-                            </p>
-                        </div>
+                        )}
+                        {props.on_sale_flag && (
+                            <div className={styles.pointMark}>
+                                <p className="text-nl text-center absolute top-2 min-w-full">
+                                    100
+                                </p>
+                                <div className="absolute top-9 left-0 min-w-full flex justify-center">
+                                    <div className="border-t-2 min-w-3/4"></div>
+                                </div>
+                                <p className="text-ns text-center absolute top-10 min-w-full">
+                                    POINTS
+                                </p>
+                            </div>
+                        )}
                     </div>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
