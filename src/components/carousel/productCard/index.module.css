@@ -1,39 +1,65 @@
-.soldOut1 {
-    background: black !important;
-    color: white !important;
-    font-size: 14px;
-    font-weight: 400;
-    display: inline-block;
-    padding: 30px;
-    border-radius: 50%;
-    width: 45px;
-    height: 45px;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+.badgeWrapper {
     display: flex;
-    vertical-align: top;
-    line-height: 14px;
-    z-index: 2;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-bottom: 5px;
 }
-.soldOut {
-    position: relative;
-    background: black !important;
-    color: white !important;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
+.soldOutContainer{
+    background: rgb(0, 0, 0);
+    padding: 8px;
+    border-radius: 50px;
+    z-index: 1;
+    width: 65px;
+    height: 65px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
     text-align: center;
-    font: 12px Arial, sans-serif;
+    flex-direction: column;
+    overflow: hidden;
 }
-.pointMark {
-    position: relative;
-    background: #8F2926 !important;
-    color: white !important;
-    border-radius: 50%;
-    width: 64px;
-    height: 64px;
+.soldOutLabel{
+    color: rgb(255, 255, 255);
+    font-size: 15px;
+    line-height: 15px;
+    font-weight: 400;
+    margin-bottom: 0px;
+    text-transform: uppercase;
+}
+.pointMarkContainer {
+    background: rgb(143, 41, 40);
+    padding: 8px;
+    border-radius: 50px;
+    z-index: 1;
+    width: 65px;
+    height: 65px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
     text-align: center;
-    font: 12px Arial, sans-serif;
-    margin-top: 5px
+    flex-direction: column;
+    overflow: hidden;
+}
+.pointMarkPoints{
+    color: rgb(255, 255, 255);
+    font-size: 32px;
+    line-height: 30px;
+    font-weight: 300;
+    margin-bottom: 0px;
+    border-bottom: 2px solid rgb(255, 255, 255);
+    text-transform: uppercase;
+}
+.pointMarkLabel{
+    color: rgb(255, 255, 255);
+    font-size: 12px;
+    font-weight: 300;
+    margin-bottom: 0px;
+    text-align: center;
+    text-transform: uppercase;
 }
