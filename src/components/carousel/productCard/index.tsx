@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { ProductTypesense } from "@/interfaces";
 import { mediaByIndex } from "../media";
@@ -8,6 +8,7 @@ import styles from "./index.module.css";
 const ProductCard: React.FunctionComponent<ProductTypesense> = (
     props: ProductTypesense,
 ) => {
+    const [isShown, setIsShown] = useState(true);
     return (
         <div className="relative h-400p w-200p bg-white p-6 items-center cursor-pointer">
             <div className="min-h-full relative">
@@ -71,9 +72,20 @@ const ProductCard: React.FunctionComponent<ProductTypesense> = (
                     <div className="text-center text-gray-800 text-lg font-bold line-clamp-2 mt-2">
                         1792 Bourbon Full Proof 12 Years (48.3% abv)
                     </div>
-                    <div className="text-center text-gray-500 text-lg font-semibold text-center mt-4">
-                        $109.99
-                    </div>
+                    {!isShown && (
+                        <div
+                            className="text-center text-gray-500 text-lg font-semibold text-center mt-4"
+                            onMouseEnter={() => setIsShown(true)}
+                            onMouseLeave={() => setIsShown(false)}
+                        >
+                            $109.99
+                        </div>
+                    )}
+                    {isShown && (
+                        <div onMouseLeave={() => setIsShown(false)}>
+                            I will appear when you hover over the button.
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
