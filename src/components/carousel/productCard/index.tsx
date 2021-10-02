@@ -1,20 +1,33 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { ProductTypesense } from "@/interfaces";
-import { mediaByIndex } from "../media";
-import heartPng from "./heart.png";
 import styles from "./index.module.css";
+import product1 from "@/assets/product-1.jpg";
 
 const ProductCard: React.FunctionComponent<ProductTypesense> = (
     props: ProductTypesense,
 ) => {
-    const [isShown, setIsShown] = useState(true);
+    const [isAddBtnShown, setIsAddBtnShown] = useState(false);
+    const [isStockShown, setIsStockShown] = useState(false);
+    const [isCardActive, setIsCardActive] = useState(false);
     return (
-        <div className="relative h-400p w-200p bg-white p-6 items-center cursor-pointer">
-            <div className="min-h-full relative">
+        <div
+            className="relative h-400p w-200p bg-white p-6 items-center cursor-pointer"
+            onMouseEnter={() => setIsCardActive(true)}
+            onMouseLeave={() => setIsCardActive(false)}
+        >
+            <div
+                className="min-h-full relative"
+                style={{
+                    transform: isCardActive
+                        ? "translateY(-10px)"
+                        : "translateY(10px)",
+                    transitionDuration: "500ms",
+                }}
+            >
                 <div className="absolute top-0 left-0 z-10 flex justify-between min-w-full">
                     <div>
-                        {props.in_stock && (
+                        {!props.in_stock && (
                             <div className={styles.badgeWrapper}>
                                 <div className={styles.soldOutContainer}>
                                     <div className={styles.soldOutLabel}>
@@ -49,43 +62,91 @@ const ProductCard: React.FunctionComponent<ProductTypesense> = (
                     </svg>
                 </div>
                 <div className="absolute top-200">
-                    <Image src={mediaByIndex(0)} alt="Picture of the author" />
+                    <Image src={product1} alt="Picture of the author" />
                 </div>
                 <div className="absolute bottom-0">
-                    <div className="flex justify-center border border-solid border-darkpink rounded-full mt-4 px-1 py-1">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-17p w-17p fill-current my-auto"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
+                    <div
+                        className="flex justify-center min-w-full"
+                        onMouseEnter={() => setIsStockShown(true)}
+                        onMouseLeave={() => setIsStockShown(false)}
+                    >
+                        <div
+                            className="flex justify-center border border-solid border-darkpink rounded-full mt-4 px-1"
+                            style={{ width: "fit-content" }}
                         >
-                            <path
-                                fillRule="evenodd"
-                                d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                                clipRule="evenodd"
-                            />
-                        </svg>
-                        <p className="text-center text-sm whitespace-nowrap">
-                            Califonia, United States
-                        </p>
+                            {!isStockShown && (
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-17p w-17p fill-current my-auto"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path
+                                        fillRule="evenodd"
+                                        d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                                        clipRule="evenodd"
+                                    />
+                                </svg>
+                            )}
+                            {!isStockShown && (
+                                <p className="text-center text-sm whitespace-nowrap">
+                                    Califonia, United States
+                                </p>
+                            )}
+                            {isStockShown && (
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-17p w-17p fill-current my-auto"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path
+                                        fillRule="evenodd"
+                                        d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                                        clipRule="evenodd"
+                                    />
+                                </svg>
+                            )}
+                            {isStockShown && (
+                                <p className="text-center text-sm whitespace-nowrap">
+                                    2099
+                                </p>
+                            )}
+                        </div>
                     </div>
                     <div className="text-center text-gray-800 text-lg font-bold line-clamp-2 mt-2">
                         1792 Bourbon Full Proof 12 Years (48.3% abv)
                     </div>
-                    {!isShown && (
-                        <div
-                            className="text-center text-gray-500 text-lg font-semibold text-center mt-4"
-                            onMouseEnter={() => setIsShown(true)}
-                            onMouseLeave={() => setIsShown(false)}
-                        >
+                    <div
+                        className="relative min-w-full"
+                        onMouseEnter={() => setIsAddBtnShown(true)}
+                        onMouseLeave={() => setIsAddBtnShown(false)}
+                    >
+                        <div className="text-center text-gray-500 text-lg font-semibold text-center mt-4">
                             $109.99
                         </div>
-                    )}
-                    {isShown && (
-                        <div onMouseLeave={() => setIsShown(false)}>
-                            I will appear when you hover over the button.
+                        <div
+                            className="absolute top-0 right-0 min-w-full text-center"
+                            style={{
+                                display: isAddBtnShown ? "block" : "none",
+                            }}
+                        >
+                            {!props.in_stock && (
+                                <button
+                                    className={`${styles.buttonFadeIn} bg-gray-400 text-white font-bold py-2 px-4 rounded`}
+                                >
+                                    Out of Stock
+                                </button>
+                            )}
+                            {props.in_stock && (
+                                <button
+                                    className={`${styles.buttonFadeIn} bg-pCardBtnActive active:bg-pCardBtnHover hover:bg-pCardBtnHover text-white font-bold py-2 px-4 rounded`}
+                                >
+                                    Add to Cart
+                                </button>
+                            )}
                         </div>
-                    )}
+                    </div>
                 </div>
             </div>
         </div>

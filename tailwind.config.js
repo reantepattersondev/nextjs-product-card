@@ -2,19 +2,20 @@ module.exports = {
   purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
-    height: {
-      "400p": "400px",
-      "600p": "600px",
-      "30p": "30px",
-      "17p": "17px",
-      "25p": "25px"
-    },
-    width: {
-      "200p": "230px",
-      "30p": "30px",
-      "17p": "17px",
-      "25p": "25px"
+    extend: {
+      height: {
+        "400p": "400px",
+        "600p": "600px",
+        "30p": "30px",
+        "17p": "17px",
+        "25p": "25px"
+      },
+      width: {
+        "200p": "230px",
+        "30p": "30px",
+        "17p": "17px",
+        "25p": "25px"
+      },
     },
     maxWidth: {
       '1/4': '25%',
@@ -50,10 +51,18 @@ module.exports = {
       ...theme('colors'),
        DEFAULT: theme('colors.gray.300', 'currentColor'),
       'darkpink': '#5E3945',
+    }),
+    backgroundColor: theme => ({
+      ...theme('colors'),
+      'pCardBtnHover': '#5C4135',
+      'pCardBtnActive': '#C7AD9D',
     })
   },
   variants: {
-    extend: {},
+    extend: {
+      transitionProperty: ['hover', 'focus'],
+      animation: ['hover', 'focus']
+    },
   },
   plugins: [
     require("@tailwindcss/aspect-ratio"),
