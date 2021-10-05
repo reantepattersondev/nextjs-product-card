@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { ProductTypesense } from "@/interfaces";
 import styles from "./index.module.css";
-import product1 from "@/assets/product-1.jpg";
+import placeholderImage from "@/assets/product-placeholder.png";
 
 const ProductCard: React.FunctionComponent<ProductTypesense> = (
     props: ProductTypesense,
@@ -27,7 +27,7 @@ const ProductCard: React.FunctionComponent<ProductTypesense> = (
             >
                 <div className="absolute top-0 left-0 z-10 flex justify-between min-w-full">
                     <div>
-                        {props.in_stock && (
+                        {!props.in_stock && (
                             <div className={styles.badgeWrapper}>
                                 <div className={styles.soldOutContainer}>
                                     <div className={styles.soldOutLabel}>
@@ -36,7 +36,7 @@ const ProductCard: React.FunctionComponent<ProductTypesense> = (
                                 </div>
                             </div>
                         )}
-                        {!props.on_sale_flag && (
+                        {props.on_sale_flag && (
                             <div className={styles.badgeWrapper}>
                                 <div className={styles.pointMarkContainer}>
                                     <div className={styles.pointMarkPoints}>
@@ -59,7 +59,21 @@ const ProductCard: React.FunctionComponent<ProductTypesense> = (
                     </svg>
                 </div>
                 <div className="absolute top-200">
-                    <Image src={product1} alt="Picture of the author" />
+                    {props.image_thumbnail_500 ? (
+                        <Image
+                            src={props.image_thumbnail_500}
+                            alt={`Picture of ${props.product_name}`}
+                            width={200}
+                            height={250}
+                        />
+                    ) : (
+                        <Image
+                            src={placeholderImage}
+                            alt={`Picture of ${props.product_name}`}
+                            width={200}
+                            height={250}
+                        />
+                    )}
                 </div>
                 <div className="absolute bottom-0">
                     <div
@@ -71,7 +85,7 @@ const ProductCard: React.FunctionComponent<ProductTypesense> = (
                             className="flex justify-center border border-solid border-darkpink rounded-full mt-4 px-1"
                             style={{ width: "fit-content" }}
                         >
-                            {!isStockShown && (
+                            {props.region && (
                                 <svg
                                     className="h-17p w-17p fill-current my-auto"
                                     viewBox="0 0 20 20"
@@ -84,12 +98,12 @@ const ProductCard: React.FunctionComponent<ProductTypesense> = (
                                     />
                                 </svg>
                             )}
-                            {!isStockShown && (
+                            {props.region && (
                                 <p className="text-center text-sm whitespace-nowrap">
-                                    Califonia, United States
+                                    {props.region}
                                 </p>
                             )}
-                            {isStockShown && (
+                            {props.vintage && (
                                 <svg
                                     className="h-17p w-17p fill-current my-auto"
                                     viewBox="0 0 32 32"
@@ -102,15 +116,15 @@ const ProductCard: React.FunctionComponent<ProductTypesense> = (
                                     ></path>
                                 </svg>
                             )}
-                            {isStockShown && (
+                            {props.vintage && (
                                 <p className="text-center text-sm whitespace-nowrap">
-                                    2099
+                                    {props.vintage}
                                 </p>
                             )}
                         </div>
                     </div>
                     <div className="text-center text-gray-800 text-lg font-bold line-clamp-2 mt-2">
-                        1792 Bourbon Full Proof 12 Years (48.3% abv)
+                        {props.product_name}
                     </div>
                     <div
                         className="relative min-w-full"
@@ -118,7 +132,9 @@ const ProductCard: React.FunctionComponent<ProductTypesense> = (
                         onMouseLeave={() => setIsAddBtnShown(false)}
                     >
                         <div className="text-center text-gray-500 text-lg font-semibold text-center mt-4">
-                            $109.99
+                            {props.in_stock
+                                ? `$ ${props.retail_price_str}`
+                                : ""}
                         </div>
                         <div
                             className="absolute top-0 right-0 min-w-full text-center"
@@ -135,6 +151,9 @@ const ProductCard: React.FunctionComponent<ProductTypesense> = (
                             )}
                             {props.in_stock && (
                                 <button
+                                    onClick={() => {
+                                        console.log(props);
+                                    }}
                                     className={`${styles.buttonFadeIn} bg-pCardBtnActive active:bg-pCardBtnHover hover:bg-pCardBtnHover text-white font-bold py-2 px-4 rounded`}
                                 >
                                     Add to Cart

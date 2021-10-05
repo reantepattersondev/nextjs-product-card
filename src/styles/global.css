@@ -27,11 +27,11 @@
 }
 
 .embla__button--prev {
-    left: 27px;
+    left: -30px;
 }
 
 .embla__button--next {
-    right: 27px;
+    right: -30px;
 }
 
 @tailwind base; /* Preflight will be injected here */
