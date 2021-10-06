@@ -15,10 +15,33 @@ const ProductCarousel: React.FunctionComponent<ProductCarouselProps> = (
     props: ProductCarouselProps,
 ) => {
     const AUTOPLAY_INTERVAL = 4000;
+    useEffect(function mount() {
+        function onScroll() {
+            if (!embla) return;
+            const width = window.innerWidth;
+            console.log(width);
+            let slidesToScroll = 1;
+            if (width < 1420 && width > 1132) {
+                slidesToScroll = 2;
+            }
+            if (width < 862 && width > 597) {
+                slidesToScroll = 2;
+            }
+            embla.reInit({
+                containScroll: "keepSnaps",
+                slidesToScroll: slidesToScroll,
+            });
+        }
 
+        window.addEventListener("resize", onScroll);
+
+        return function unMount() {
+            window.removeEventListener("resize", onScroll);
+        };
+    });
     const [emblaRef, embla] = useEmblaCarousel({
-        containScroll: "trimSnaps",
-        dragFree: true,
+        containScroll: "keepSnaps",
+        slidesToScroll: 1,
     });
     const autoplay = useCallback(() => {
         if (!embla || !props.isAutoPlay) return;
@@ -26,6 +49,18 @@ const ProductCarousel: React.FunctionComponent<ProductCarouselProps> = (
             embla.scrollNext();
         } else {
             embla.scrollTo(0);
+        }
+    }, [embla]);
+
+    const changeSlidesToScroll = useCallback(() => {
+        if (!embla) return;
+        const width = window.innerWidth;
+        if (width < 1420 && width > 1132) {
+            embla.reInit({
+                containScroll: "keepSnaps",
+                slidesToScroll: 2,
+            });
+            console.log("reinited");
         }
     }, [embla]);
 
@@ -52,12 +87,14 @@ const ProductCarousel: React.FunctionComponent<ProductCarouselProps> = (
         play();
     }, [play]);
     return (
-        <div className="relative bg-gray-300 p-8 max-w-5xl mx-auto h-600p">
-            <div className="w-full overflow-hidden" ref={emblaRef}>
-                <div className={styles.embla__container}>
+        <div className="embla">
+            <div className="embla__viewport" ref={emblaRef}>
+                <div className="embla__container">
                     {props.products.map((product, index) => (
-                        <div className="relative m-w-250p pl-2" key={index}>
-                            <ProductCard {...product} />
+                        <div className="embla__slide" key={index}>
+                            <div className="embla__slide__inner">
+                                <ProductCard {...product} />
+                            </div>
                         </div>
                     ))}
                 </div>

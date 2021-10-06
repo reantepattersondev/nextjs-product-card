@@ -79,6 +79,14 @@ module.exports = {
         '10p': '10px'
       }
     },
+    screens: {
+      DEFAULT: {'max': '1000000px'},
+      '2xl': {'max': '1919px'},
+      'xl': {'max': '1279px'},
+      'lg': {'max': '1023px'},
+      'md': {'max': '767px'},
+      'sm': {'max': '639px'},
+    },
     borderRadius: {
       'none': '0',
       'sm': '0.125rem',
