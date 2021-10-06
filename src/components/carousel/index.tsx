@@ -44,9 +44,11 @@ const ProductCarousel: React.FunctionComponent<ProductCarouselProps> = (
     useEffect(() => {
         if (!embla) return;
         embla.on("select", onSelect);
+        embla.reInit({ loop: false });
+
         onSelect();
     }, [embla, onSelect]);
-    useEffect(() => {
+    +useEffect(() => {
         play();
     }, [play]);
     return (
